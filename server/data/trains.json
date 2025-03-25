@@ -1,0 +1,44 @@
+[
+  {
+    "trainNumber": "211F",
+    "trainName": "Mutiara Timur",
+    "from": "SGU",
+    "to": "KTG"
+  },
+  {
+    "trainNumber": "147F",
+    "trainName": "Blambangan Express",
+    "from": "PSE",
+    "to": "KTG"
+  },
+  {
+    "trainNumber": "129",
+    "trainName": "Wijaya Kusuma",
+    "from": "CP",
+    "to": "KTG"
+  },
+  {
+    "trainNumber": "294",
+    "trainName": "Tawangalun",
+    "from": "KTG",
+    "to": "ML"
+  },
+  {
+    "trainNumber": "281",
+    "trainName": "Pandanwangi",
+    "from": "KTG",
+    "to": "PWT"
+  },
+  {
+    "trainNumber": "293",
+    "trainName": "Sri Tanjung",
+    "from": "KTG",
+    "to": "LPN"
+  },
+  {
+    "trainNumber": "442",
+    "trainName": "Ijen Express",
+    "from": "KTG",
+    "to": "ML"
+  }
+]

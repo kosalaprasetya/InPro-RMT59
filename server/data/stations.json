@@ -1,0 +1,51 @@
+[
+  {
+    "stationName": "Stasiun Jember",
+    "stationCode": "JR",
+    "stationOperationalArea": "DAOP9",
+    "stationRegion": "Jember",
+    "stationClass": "1"
+  },
+  {
+    "stationName": "Stasiun Ketapang",
+    "stationCode": "KTG",
+    "stationOperationalArea": "DAOP9",
+    "stationRegion": "Banyuwangi",
+    "stationClass": "1"
+  },
+  {
+    "stationName": "Stasiun Banyuwangi Kota",
+    "stationCode": "BWI",
+    "stationOperationalArea": "DAOP9",
+    "stationRegion": "Banyuwangi",
+    "stationClass": "2"
+  },
+  {
+    "stationName": "Stasiun Probolinggo",
+    "stationCode": "PB",
+    "stationOperationalArea": "DAOP9",
+    "stationRegion": "Probolinggo",
+    "stationClass": "1"
+  },
+  {
+    "stationName": "Stasiun Pasuruan",
+    "stationCode": "PS",
+    "stationOperationalArea": "DAOP9",
+    "stationRegion": "Pasuruan",
+    "stationClass": "2"
+  },
+  {
+    "stationName": "Stasiun Kalisat",
+    "stationCode": "KLT",
+    "stationOperationalArea": "DAOP9",
+    "stationRegion": "Jember",
+    "stationClass": "2"
+  },
+  {
+    "stationName": "Stasiun Kalibaru",
+    "stationCode": "KBR",
+    "stationOperationalArea": "DAOP9",
+    "stationRegion": "Jember",
+    "stationClass": "2"
+  }
+]
