@@ -30,13 +30,21 @@ module.exports = {
       el.updatedAt = new Date();
       return el;
     });
-    await queryInterface.bulkInsert('Stations', stationsData, {});
-    await queryInterface.bulkInsert('Trains', trainsData, {});
-    await queryInterface.bulkInsert('Users', usersData, {});
-    await queryInterface.bulkInsert('TrainSchedules', schedulesData, {});
+
+    try {
+      await queryInterface.bulkInsert('Stations', stationsData, {});
+      await queryInterface.bulkInsert('Trains', trainsData, {});
+      await queryInterface.bulkInsert('Users', usersData, {});
+      await queryInterface.bulkInsert('TrainSchedules', schedulesData, {});
+    } catch (error) {
+      console.error('Error during seeding:', error);
+    }
   },
 
   async down(queryInterface, Sequelize) {
     await queryInterface.bulkDelete('Stations', null, {});
+    await queryInterface.bulkDelete('Trains', null, {});
+    await queryInterface.bulkDelete('Users', null, {});
+    await queryInterface.bulkDelete('TrainSchedules', null, {});
   },
 };

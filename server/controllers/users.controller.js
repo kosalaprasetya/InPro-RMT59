@@ -81,15 +81,17 @@ class UsersController {
     try {
       const { id } = req.params;
       const { authorization: userToken } = req.headers;
+      if (!userToken) throw { name: 'unauthorized', message: 'Token is required' };
+
       const currentUser = verifyToken(userToken.split(' ')[1]);
-      if (+currentUser.id === +id) throw { name: 'forbidden', message: 'you are not allowed' };
+      if (+currentUser.id === +id) throw { name: 'forbidden', message: 'You are not allowed to delete yourself' };
 
       const user = await User.findByPk(id);
       if (!user) throw { name: 'not found', message: 'User not found' };
 
-      User.destroy({ where: { id } });
+      await User.destroy({ where: { id } });
 
-      res.status(200).json(user);
+      res.status(200).json({ message: 'User deleted successfully', id });
     } catch (error) {
       next(error);
     }

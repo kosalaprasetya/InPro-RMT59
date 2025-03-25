@@ -1,29 +1,16 @@
 const { verifyToken } = require('../helpers/jwt');
-const { User } = require('../models');
 
-const authentication = async (req, res, next) => {
+module.exports = async (req, res, next) => {
   try {
     const { authorization } = req.headers;
-    if (!authorization) throw { name: 'unauthorized', message: 'Invalid Token' };
+    if (!authorization) throw { name: 'unauthorized', message: 'Token is required' };
 
-    const authToken = authorization.split(' ');
-    if (authToken[0] !== 'Bearer' || !authToken[1]) throw { name: 'unauthorized', message: 'Invalid Token' };
+    const token = authorization.split(' ')[1];
+    const payload = verifyToken(token);
 
-    const tokenValue = verifyToken(authToken[1]);
-    const userData = await User.findByPk(tokenValue.id);
-    if (!userData) throw { name: 'unauthorized', message: 'Invalid Token' };
-
-    req.user = {
-      id: userData.id,
-      role: userData.role,
-    };
-
+    req.user = payload;
     next();
   } catch (error) {
-    console.log('throwing error from authentication >>>>>');
-
     next(error);
   }
 };
-
-module.exports = authentication;

@@ -16,6 +16,11 @@ module.exports = (sequelize, DataTypes) => {
     {
       fullName: {
         type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: { msg: 'Full name cannot be null' },
+          notEmpty: { msg: 'Full name cannot be empty' },
+        },
       },
       email: {
         type: DataTypes.STRING,
@@ -25,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Email address already in use!',
         },
         validate: {
-          notNull: { msg: 'Email cannot be empty' },
+          notNull: { msg: 'Email cannot be null' },
           notEmpty: { msg: 'Email cannot be empty' },
           isEmail: { msg: 'Must be a valid email address' },
         },
@@ -34,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false, // Password tidak boleh null
         validate: {
-          notNull: { msg: 'Password cannot be empty' },
+          notNull: { msg: 'Password cannot be null' },
           notEmpty: { msg: 'Password cannot be empty' },
         },
       },
@@ -43,9 +48,8 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: 'User',
       hooks: {
-        beforeCreate(user, option) {
-          const hashedPassword = hasher(user.password);
-          user.password = hashedPassword;
+        beforeCreate(user, options) {
+          user.password = hasher(user.password);
         },
       },
     }
