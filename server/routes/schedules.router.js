@@ -1,21 +1,14 @@
-const res = require('express/lib/response');
-const Controller = require('../controllers/controller');
+const Controller = require('../controllers/schedules.controller');
 const route = require('express').Router();
 
-route.get('/schedules', (req, res) => {
-  res.send('/schedules');
-});
-route.get('/schedules/:id', (req, res) => {
-  res.send('/schedules');
-});
-route.post('/schedules', (req, res) => {
-  res.send('/schedules');
-});
-route.put('/schedules/:id', (req, res) => {
-  res.send('/schedules');
-});
-route.delete('/schedules/:id', (req, res) => {
-  res.send('/schedules');
-});
+route.get('/', Controller.getAllSchedules);
+route.get('/:id', Controller.getScheduleById);
+route.post('/', Controller.createSchedule);
+route.put('/:id', Controller.updateSchedule);
+route.delete('/:id', Controller.deleteSchedule);
+
+// Additional useful routes
+route.get('/train/:trainNumber', Controller.getSchedulesByTrain);
+route.get('/station/:stationCode', Controller.getSchedulesByStation);
 
 module.exports = route;

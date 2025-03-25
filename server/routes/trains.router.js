@@ -1,19 +1,10 @@
-const Controller = require('../controllers/controller');
+const Controller = require('../controllers/trains.controller');
 const route = require('express').Router();
 
-route.get('/', (req, res) => {
-  res.send('/schedules');
-});
-route.get('/:id', (req, res) => {
-  res.send('/schedules');
-});
-route.post('/', (req, res) => {
-  res.send('/schedules');
-});
-route.put('/:id', (req, res) => {
-  res.send('/schedules');
-});
-route.delete('/:id', (req, res) => {
-  res.send('/schedules');
-});
+route.get('/', Controller.getAllTrains);
+route.get('/:trainNumber', Controller.getTrainByNumber);
+route.post('/', Controller.createTrain);
+route.put('/:trainNumber', Controller.updateTrain);
+route.delete('/:trainNumber', Controller.deleteTrain);
+
 module.exports = route;

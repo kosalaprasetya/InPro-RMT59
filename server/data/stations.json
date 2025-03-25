@@ -21,6 +21,69 @@
     "stationClass": "2"
   },
   {
+    "stationName": "Stasiun Rogojampi",
+    "stationCode": "RGP",
+    "stationOperationalArea": "DAOP9",
+    "stationRegion": "Banyuwangi",
+    "stationClass": "2"
+  },
+  {
+    "stationName": "Stasiun Temuguruh",
+    "stationCode": "TGR",
+    "stationOperationalArea": "DAOP9",
+    "stationRegion": "Banyuwangi",
+    "stationClass": "2"
+  },
+  {
+    "stationName": "Stasiun Kalisetail",
+    "stationCode": "KSL",
+    "stationOperationalArea": "DAOP9",
+    "stationRegion": "Banyuwangi",
+    "stationClass": "2"
+  },
+  {
+    "stationName": "Stasiun Glenmore",
+    "stationCode": "GLM",
+    "stationOperationalArea": "DAOP9",
+    "stationRegion": "Banyuwangi",
+    "stationClass": "3"
+  },
+  {
+    "stationName": "Stasiun Kalibaru",
+    "stationCode": "KBR",
+    "stationOperationalArea": "DAOP9",
+    "stationRegion": "Banyuwangi",
+    "stationClass": "3"
+  },
+  {
+    "stationName": "Stasiun Kalisat",
+    "stationCode": "KLT",
+    "stationOperationalArea": "DAOP9",
+    "stationRegion": "Jember",
+    "stationClass": "2"
+  },
+  {
+    "stationName": "Stasiun Rambipuji",
+    "stationCode": "RBP",
+    "stationOperationalArea": "DAOP9",
+    "stationRegion": "Jember",
+    "stationClass": "2"
+  },
+  {
+    "stationName": "Stasiun Tanggul",
+    "stationCode": "TGL",
+    "stationOperationalArea": "DAOP9",
+    "stationRegion": "Jember",
+    "stationClass": "2"
+  },
+  {
+    "stationName": "Stasiun Klakah",
+    "stationCode": "KK",
+    "stationOperationalArea": "DAOP9",
+    "stationRegion": "Lumajang",
+    "stationClass": "2"
+  },
+  {
     "stationName": "Stasiun Probolinggo",
     "stationCode": "PB",
     "stationOperationalArea": "DAOP9",
@@ -35,17 +98,59 @@
     "stationClass": "2"
   },
   {
-    "stationName": "Stasiun Kalisat",
-    "stationCode": "KLT",
-    "stationOperationalArea": "DAOP9",
-    "stationRegion": "Jember",
+    "stationName": "Stasiun Bangil",
+    "stationCode": "BG",
+    "stationOperationalArea": "DAOP8",
+    "stationRegion": "Pasuruan",
+    "stationClass": "1"
+  },
+  {
+    "stationName": "Stasiun Sidoarjo",
+    "stationCode": "SDA",
+    "stationOperationalArea": "DAOP8",
+    "stationRegion": "Sidoarjo",
+    "stationClass": "1"
+  },
+  {
+    "stationName": "Stasiun Surabaya Pasar Turi",
+    "stationCode": "SB",
+    "stationOperationalArea": "DAOP8",
+    "stationRegion": "Surabaya",
+    "stationClass": "1"
+  },
+  {
+    "stationName": "Stasiun Surabaya Gubeng",
+    "stationCode": "SGU",
+    "stationOperationalArea": "DAOP8",
+    "stationRegion": "Surabaya",
+    "stationClass": "1"
+  },
+  {
+    "stationName": "Stasiun Wonokromo",
+    "stationCode": "WK",
+    "stationOperationalArea": "DAOP8",
+    "stationRegion": "Surabaya",
+    "stationClass": "1"
+  },
+  {
+    "stationName": "Stasiun Waru",
+    "stationCode": "WRU",
+    "stationOperationalArea": "DAOP8",
+    "stationRegion": "Sidoarjo",
     "stationClass": "2"
   },
   {
-    "stationName": "Stasiun Kalibaru",
-    "stationCode": "KBR",
-    "stationOperationalArea": "DAOP9",
-    "stationRegion": "Jember",
+    "stationName": "Stasiun Porong",
+    "stationCode": "PG",
+    "stationOperationalArea": "DAOP8",
+    "stationRegion": "Sidoarjo",
+    "stationClass": "2"
+  },
+  {
+    "stationName": "Stasiun Krian",
+    "stationCode": "KRN",
+    "stationOperationalArea": "DAOP8",
+    "stationRegion": "Sidoarjo",
     "stationClass": "2"
   }
 ]

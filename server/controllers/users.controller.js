@@ -1,14 +1,15 @@
 const { User } = require('../models');
-const { comparePassword } = require('../helpers/bcrypt');
-const { signToken } = require('../helpers/jwt');
+const { comparePassword, hasher } = require('../helpers/bcrypt');
+const { signToken, verifyToken } = require('../helpers/jwt');
 
 class UsersController {
   static async register(req, res, next) {
     try {
-      const { email, password } = req.body;
-      const user = await User.create({ email, password });
+      const { fullName, email, password } = req.body;
+      const user = await User.create({ fullName, email, password });
       const returnObj = {
         id: +user.id,
+        fullName: user.fullName,
         email: user.email,
       };
       res.status(201).json(returnObj);
@@ -34,6 +35,61 @@ class UsersController {
         const token = signToken({ id: user.id });
         res.status(200).json({ access_token: token });
       }
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getAllUser(req, res, next) {
+    try {
+      const allUsers = await User.findAll();
+      res.status(200).json(allUsers);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getUserById(req, res, next) {
+    try {
+      const { id } = req.params;
+      const user = await User.findByPk(id);
+      if (!user) throw { name: 'not found', message: 'User not found' };
+      res.status(200).json(user);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async editUser(req, res, next) {
+    try {
+      const { id } = req.params;
+      const { fullName, email, password } = req.body;
+
+      if (!email && !password) throw { name: 'bad request', message: 'Email and password is required' };
+      const user = await User.findByPk(id);
+      if (!user) throw { name: 'not found', message: 'User not found' };
+
+      const hashedPassword = hasher(password);
+      const result = await User.update({ fullName, email, password: hashedPassword }, { where: { id } });
+      res.status(201).json({ message: 'User updated' });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async deleteUser(req, res, next) {
+    try {
+      const { id } = req.params;
+      const { authorization: userToken } = req.headers;
+      const currentUser = verifyToken(userToken.split(' ')[1]);
+      if (+currentUser.id === +id) throw { name: 'forbidden', message: 'you are not allowed' };
+
+      const user = await User.findByPk(id);
+      if (!user) throw { name: 'not found', message: 'User not found' };
+
+      User.destroy({ where: { id } });
+
+      res.status(200).json(user);
     } catch (error) {
       next(error);
     }

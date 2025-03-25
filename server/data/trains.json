@@ -6,39 +6,129 @@
     "to": "KTG"
   },
   {
-    "trainNumber": "147F",
+    "trainNumber": "147",
     "trainName": "Blambangan Express",
     "from": "PSE",
     "to": "KTG"
   },
   {
-    "trainNumber": "129",
+    "trainNumber": "159",
     "trainName": "Wijaya Kusuma",
     "from": "CP",
     "to": "KTG"
   },
   {
     "trainNumber": "294",
-    "trainName": "Tawangalun",
+    "trainName": "Tawang Alun",
     "from": "KTG",
     "to": "ML"
   },
   {
-    "trainNumber": "281",
-    "trainName": "Pandanwangi",
+    "trainNumber": "250",
+    "trainName": "Logawa",
     "from": "KTG",
     "to": "PWT"
   },
   {
-    "trainNumber": "293",
-    "trainName": "Sri Tanjung",
+    "trainNumber": "491",
+    "trainName": "Pandanwangi",
+    "from": "JR",
+    "to": "KTG"
+  },
+  {
+    "trainNumber": "280",
+    "trainName": "Sritanjung",
     "from": "KTG",
     "to": "LPN"
   },
   {
-    "trainNumber": "442",
+    "trainNumber": "212F",
+    "trainName": "Mutiara Timur",
+    "from": "KTG",
+    "to": "SGU"
+  },
+  {
+    "trainNumber": "492",
+    "trainName": "Pandanwangi",
+    "from": "KTG",
+    "to": "JR"
+  },
+  {
+    "trainNumber": "160",
+    "trainName": "Wijaya Kusuma",
+    "from": "KTG",
+    "to": "CP"
+  },
+  {
+    "trainNumber": "297",
+    "trainName": "Probowangi",
+    "from": "SGU",
+    "to": "KTG"
+  },
+  {
+    "trainNumber": "239F",
+    "trainName": "Ijen Express",
+    "from": "ML",
+    "to": "KTG"
+  },
+  {
+    "trainNumber": "209",
+    "trainName": "Mutiara Timur",
+    "from": "SBI",
+    "to": "KTG"
+  },
+  {
+    "trainNumber": "493",
+    "trainName": "Pandanwangi",
+    "from": "JR",
+    "to": "KTG"
+  },
+  {
+    "trainNumber": "148",
+    "trainName": "Blambangan Express",
+    "from": "KTG",
+    "to": "PSE"
+  },
+  {
+    "trainNumber": "298",
+    "trainName": "Probowangi",
+    "from": "KTG",
+    "to": "SGU"
+  },
+  {
+    "trainNumber": "494",
+    "trainName": "Pandanwangi",
+    "from": "KTG",
+    "to": "JR"
+  },
+  {
+    "trainNumber": "279",
+    "trainName": "Sritanjung",
+    "from": "LPN",
+    "to": "KTG"
+  },
+  {
+    "trainNumber": "240F",
     "trainName": "Ijen Express",
     "from": "KTG",
     "to": "ML"
+  },
+  {
+    "trainNumber": "249",
+    "trainName": "Logawa",
+    "from": "PWT",
+    "to": "KTG"
+  },
+  {
+    "trainNumber": "210",
+    "trainName": "Mutiara Timur",
+    "from": "KTG",
+    "to": "SBI"
+  },
+  {
+    "trainNumber": "293",
+    "trainName": "Tawang Alun",
+    "from": "ML",
+    "to": "KTG"
   }
 ]

@@ -1,5 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
+const { hasher } = require('../helpers/bcrypt');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -24,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Email address already in use!',
         },
         validate: {
-          notNull: { msg: 'Email cannot be null' },
+          notNull: { msg: 'Email cannot be empty' },
           notEmpty: { msg: 'Email cannot be empty' },
           isEmail: { msg: 'Must be a valid email address' },
         },
@@ -33,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false, // Password tidak boleh null
         validate: {
-          notNull: { msg: 'Password cannot be null' },
+          notNull: { msg: 'Password cannot be empty' },
           notEmpty: { msg: 'Password cannot be empty' },
         },
       },
@@ -41,6 +42,12 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'User',
+      hooks: {
+        beforeCreate(user, option) {
+          const hashedPassword = hasher(user.password);
+          user.password = hashedPassword;
+        },
+      },
     }
   );
   return User;

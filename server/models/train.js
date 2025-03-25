@@ -10,6 +10,12 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Train.hasMany(models.TrainSchedule, { foreignKey: 'trainId', as: 'schedules' });
+      Train.belongsToMany(models.Station, {
+        through: models.TrainSchedule,
+        foreignKey: 'trainId',
+        otherKey: 'stationId',
+        as: 'stations',
+      });
     }
   }
   Train.init(
