@@ -1,0 +1,57 @@
+ [
+	{
+		"id" : 1,
+		"arrival" : "21:17:00Z",
+		"departure" : "21:20:00Z",
+		"isPassingOnly" : false,
+		"isTerminus" : false,
+		"stationId" : 4,
+		"trainId" : 1,
+		"createdAt" : "2025-03-25T12:21:36.284Z",
+		"updatedAt" : "2025-03-25T12:21:36.284Z"
+	},
+	{
+		"id" : 2,
+		"arrival" : "21:45:00Z",
+		"departure" : "21:47:00Z",
+		"isPassingOnly" : false,
+		"isTerminus" : false,
+		"stationId" : 4,
+		"trainId" : 2,
+		"createdAt" : "2025-03-25T12:23:43.721Z",
+		"updatedAt" : "2025-03-25T12:23:43.721Z"
+	},
+	{
+		"id" : 3,
+		"arrival" : "22:35:00Z",
+		"departure" : "22:38:00Z",
+		"isPassingOnly" : false,
+		"isTerminus" : false,
+		"stationId" : 4,
+		"trainId" : 4,
+		"createdAt" : "2025-03-25T12:24:40.679Z",
+		"updatedAt" : "2025-03-25T12:24:40.679Z"
+	},
+	{
+		"id" : 5,
+		"arrival" : "00:42:00Z",
+		"departure" : "00:44:00Z",
+		"isPassingOnly" : false,
+		"isTerminus" : false,
+		"stationId" : 4,
+		"trainId" : 5,
+		"createdAt" : "2025-03-25T13:17:17.091Z",
+		"updatedAt" : "2025-03-25T13:17:17.091Z"
+	},
+	{
+		"id" : 6,
+		"arrival" : "00:09:00Z",
+		"departure" : "00:12:00Z",
+		"isPassingOnly" : false,
+		"isTerminus" : false,
+		"stationId" : 4,
+		"trainId" : 6,
+		"createdAt" : "2025-03-25T13:21:46.717Z",
+		"updatedAt" : "2025-03-25T13:21:46.717Z"
+	}
+]
