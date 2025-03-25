@@ -17,19 +17,11 @@ module.exports = (sequelize, DataTypes) => {
     {
       arrival: {
         type: DataTypes.TIME,
-        allowNull: false,
-        validate: {
-          notNull: { msg: 'Arrival time cannot be empty' },
-          notEmpty: { msg: 'Arrival time cannot be empty' },
-        },
+        allowNull: true,
       },
       departure: {
         type: DataTypes.TIME,
-        allowNull: false,
-        validate: {
-          notNull: { msg: 'Departure time cannot be empty' },
-          notEmpty: { msg: 'Departure time cannot be empty' },
-        },
+        allowNull: true,
       },
       isPassingOnly: {
         type: DataTypes.BOOLEAN,

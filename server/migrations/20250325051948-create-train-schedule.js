@@ -11,11 +11,9 @@ module.exports = {
       },
       arrival: {
         type: Sequelize.TIME,
-        allowNull: false, // Arrival time cannot be empty
       },
       departure: {
         type: Sequelize.TIME,
-        allowNull: false, // Departure time cannot be empty
       },
       isPassingOnly: {
         type: Sequelize.BOOLEAN,
