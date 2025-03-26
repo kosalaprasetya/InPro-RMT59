@@ -10,30 +10,6 @@ route.use('/users', require('./authUsers.router'));
 route.use('/stations', require('./stations.router'));
 route.use('/trains', require('./trains.router'));
 route.use('/schedules', require('./schedules.router'));
-
-// // CRUD for Train Schedules
-
-// // List data stations
-// route.get('/stations/list/all', Controller.listAllStations);
-
-// // List data trains
-// route.get('/trains/list/all', Controller.listAllTrains);
-
-// // List data stations with passing trains
-// route.get('/stations/with-passing-trains', Controller.listStationsWithPassingTrains);
-
-// // List data stations with stopping trains
-// route.get('/stations/with-stopping-trains', Controller.listStationsWithStoppingTrains);
-
-// // List data stations by operational area
-// route.get('/stations/by-area/:area', Controller.listStationsByOperationalArea);
-
-// // List data trains with stations they pass through
-// route.get('/trains/with-passing-stations', Controller.listTrainsWithPassingStations);
-
-// // List data trains with stations they stop at
-// route.get('/trains/with-stopping-stations', Controller.listTrainsWithStoppingStations);
-
-module.exports = route;
+route.use('/utils', require('./utils.router'));
 
 module.exports = route;

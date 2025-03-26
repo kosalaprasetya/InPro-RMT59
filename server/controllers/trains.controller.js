@@ -4,7 +4,7 @@ const { Train, TrainSchedule, Station } = require('../models');
 class TrainsController {
   static async getAllTrains(req, res, next) {
     try {
-      const stations = await Train.findAll({
+      const trains = await Train.findAll({
         include: [
           {
             model: TrainSchedule,
@@ -18,7 +18,7 @@ class TrainsController {
           },
         ],
       });
-      res.status(200).json(stations);
+      res.status(200).json(trains);
     } catch (error) {
       next(error);
     }
