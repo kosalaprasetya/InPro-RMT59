@@ -3,8 +3,11 @@ const route = require('express').Router();
 const gemini = require('../helpers/geminiAI');
 const weatherCondition = require('../helpers/weather');
 
-route.get('/ai', async (req, res) => {
+route.post('/ai', async (req, res) => {
   const { message } = req.body;
+  if (!message) {
+    return res.status(400).json({ message: 'Message is required' });
+  }
   const response = await gemini(message);
   res.status(200).send(response);
 });

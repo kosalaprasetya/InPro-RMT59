@@ -42,6 +42,10 @@ class SchedulesController {
     try {
       const { arrival, departure, isPassingOnly, isTerminus, stationId, trainId } = req.body;
 
+      if (!arrival || !departure || !stationId || !trainId) {
+        throw { name: 'bad request', message: 'Missing required fields' };
+      }
+
       // Validate if train and station exist
       const train = await Train.findByPk(trainId);
       if (!train) throw { name: 'not found', message: 'Train not found' };
@@ -68,6 +72,7 @@ class SchedulesController {
     try {
       const { id } = req.params;
       const { arrival, departure, isPassingOnly, isTerminus, stationId, trainId } = req.body;
+
       // Check if schedule exists
       const schedule = await TrainSchedule.findOne({ where: { id } });
       if (!schedule) throw { name: 'not found', message: 'Schedule not found' };
@@ -83,7 +88,7 @@ class SchedulesController {
         if (!station) throw { name: 'not found', message: 'Station not found' };
       }
 
-      const updatedSchedule = await TrainSchedule.update(
+      await TrainSchedule.update(
         {
           arrival,
           departure,
@@ -95,7 +100,7 @@ class SchedulesController {
         { where: { id } }
       );
 
-      res.status(200).json('Schedule updated successfully');
+      res.status(200).json({ message: 'Schedule updated successfully' });
     } catch (error) {
       next(error);
     }
@@ -108,6 +113,7 @@ class SchedulesController {
       // Check if schedule exists
       const schedule = await TrainSchedule.findOne({ where: { id } });
       if (!schedule) throw { name: 'not found', message: 'Schedule not found' };
+
       await TrainSchedule.destroy({ where: { id } });
 
       res.status(200).json({ message: 'Schedule deleted successfully' });

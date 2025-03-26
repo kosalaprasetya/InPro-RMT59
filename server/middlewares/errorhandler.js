@@ -16,6 +16,12 @@ const errorHandler = (err, req, res, next) => {
   if (err.name === 'not found') {
     return res.status(404).json({ message: err.message });
   }
+  if (err.name === 'SequelizeDatabaseError') {
+    return res.status(400).json({ message: 'Database error' });
+  }
+  if (err.name === 'Error') {
+    return res.status(500).json({ message: err.message });
+  }
   if (err) {
     return res.status(500).json({ message: 'Internal server error' });
   }

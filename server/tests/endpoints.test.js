@@ -219,46 +219,47 @@ describe('Schedules Endpoints', () => {
         departure: '10:30:00',
         isPassingOnly: false,
         isTerminus: false,
-        stationId: testStationId || 1,
-        trainId: testTrainId || 1,
+        stationId: testStationId, // Ensure testStationId is valid
+        trainId: testTrainId, // Ensure testTrainId is valid
       })
       .set('Authorization', `Bearer ${validToken}`);
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty('schedule');
-    createdScheduleId = 1;
+    createdScheduleId = response.body.schedule.id; // Fix assignment of createdScheduleId
   });
 
   test('GET /schedules/:id - should get a schedule by ID', async () => {
     const response = await request(app)
-      .get(`/schedules/${createdScheduleId || 1}`)
+      .get(`/schedules/${createdScheduleId}`) // Ensure createdScheduleId is valid
       .set('Authorization', `Bearer ${validToken}`);
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(200); // Ensure the schedule exists
     expect(response.body).toHaveProperty('arrival');
+    expect(response.body).toHaveProperty('departure');
   });
 
   // The following tests depend on the implementation of updateSchedule and deleteSchedule
   // which are not shown in the provided controller code
   test('PUT /schedules/:id - should update a schedule', async () => {
     const response = await request(app)
-      .put(`/schedules/${createdScheduleId || 1}`)
+      .put(`/schedules/${createdScheduleId}`) // Ensure createdScheduleId is valid
       .send({
         arrival: '11:00:00',
         departure: '11:30:00',
-        stationId: testStationId || 1,
-        trainId: testTrainId || 1,
+        isPassingOnly: true,
+        isTerminus: false,
+        stationId: testStationId, // Ensure testStationId is valid
+        trainId: testTrainId, // Ensure testTrainId is valid
       })
       .set('Authorization', `Bearer ${validToken}`);
     expect(response.status).toBe(200);
-    // Adjust expectation based on actual implementation
     expect(response.body).toHaveProperty('message', 'Schedule updated successfully');
   });
 
   test('DELETE /schedules/:id - should delete a schedule', async () => {
     const response = await request(app)
-      .delete(`/schedules/${createdScheduleId || 2}`)
+      .delete(`/schedules/${createdScheduleId}`) // Ensure createdScheduleId is valid
       .set('Authorization', `Bearer ${validToken}`);
     expect(response.status).toBe(200);
-    // Adjust expectation based on actual implementation
     expect(response.body).toHaveProperty('message', 'Schedule deleted successfully');
   });
 
@@ -273,5 +274,95 @@ describe('Schedules Endpoints', () => {
     const response = await request(app).get('/schedules/station/STS').set('Authorization', `Bearer ${validToken}`);
     expect(response.status).toBe(200);
     expect(Array.isArray(response.body)).toBe(true);
+  });
+
+  // Add tests for error cases
+  test('GET /schedules/:id - should return 404 for non-existent schedule', async () => {
+    const response = await request(app)
+      .get('/schedules/9999') // Non-existent schedule ID
+      .set('Authorization', `Bearer ${validToken}`);
+    expect(response.status).toBe(404);
+    expect(response.body).toHaveProperty('message', 'Schedule not found');
+  });
+
+  test('POST /schedules - should return 400 for invalid data', async () => {
+    const response = await request(app)
+      .post('/schedules')
+      .send({
+        arrival: 'invalid-time', // Invalid time format
+        departure: 'invalid-time', // Invalid time format
+        stationId: null, // Invalid stationId
+        trainId: null, // Invalid trainId
+      })
+      .set('Authorization', `Bearer ${validToken}`);
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty('message'); // Ensure error message is returned
+  });
+
+  // Add tests for helpers and middlewares
+  describe('Utils Endpoints', () => {
+    // Fix for POST /utils/ai - should return AI response
+    test('POST /utils/ai - should return AI response', async () => {
+      const response = await request(app)
+        .post('/utils/ai') // Ensure the endpoint is POST if required
+        .set('Authorization', `Bearer ${validToken}`)
+        .send({ message: 'Tell me about trains' }); // Ensure payload matches expected format
+      expect(response.status).toBe(200);
+      expect(response.body).toBeDefined();
+    });
+
+    test('GET /utils/weather/:region - should return weather data', async () => {
+      const response = await request(app).get('/utils/weather/Jakarta').set('Authorization', `Bearer ${validToken}`);
+      expect(response.status).toBe(200);
+      expect(response.body).toHaveProperty('location');
+    });
+  });
+});
+
+describe('Error Handling and Edge Cases', () => {
+  test('GET /users/:id - should return 404 for non-existent user', async () => {
+    const response = await request(app).get('/users/9999').set('Authorization', `Bearer ${validToken}`);
+    expect(response.status).toBe(404);
+    expect(response.body).toHaveProperty('message', 'User not found');
+  });
+
+  test('POST /auth/register - should return 400 for invalid input', async () => {
+    const response = await request(app).post('/auth/register').send({
+      fullName: '',
+      email: 'invalid-email',
+      password: '',
+    });
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty('message');
+  });
+
+  test('GET /stations - should return 401 for missing token', async () => {
+    const response = await request(app).get('/stations');
+    expect(response.status).toBe(401);
+    expect(response.body).toHaveProperty('message', 'Unauthorized');
+  });
+
+  test('POST /trains - should return 400 for missing required fields', async () => {
+    const response = await request(app).post('/trains').send({ trainName: 'Incomplete Train' }).set('Authorization', `Bearer ${validToken}`);
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty('message');
+  });
+
+  test('DELETE /stations/:stationCode - should return 404 for non-existent station', async () => {
+    const response = await request(app).delete('/stations/INVALID').set('Authorization', `Bearer ${validToken}`);
+    expect(response.status).toBe(404);
+    expect(response.body).toHaveProperty('message', 'Station not found');
+  });
+
+  test('PUT /schedules/:id - should return 400 for invalid data', async () => {
+    const response = await request(app).put(`/schedules/${createdScheduleId}`).send({ arrival: 'invalid-time' }).set('Authorization', `Bearer ${validToken}`);
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty('message');
+  });
+
+  test('GET /utils/weather/:region - should return 404 for invalid region', async () => {
+    const response = await request(app).get('/utils/weather/InvalidRegion').set('Authorization', `Bearer ${validToken}`);
+    expect(response.status).toBe(404);
+    expect(response.body).toHaveProperty('message', 'Region not found');
   });
 });
