@@ -7,12 +7,15 @@ import TrainsPage from "./pages/trains/TrainsPage";
 import StationsSchedulePage from "./pages/stations/StationsSchedulePage";
 import AddSchedulePage from "./pages/AddSchedulePage";
 import UpdateSchedulePage from "./pages/UpdateSchedulePage";
+import TrainsSchedulePage from "./pages/trains/TrainsSchedulePage";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
   return (
     <>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
 
         {/* Protected Route */}
         <Route path="/" element={<MainLayout />}>
@@ -22,7 +25,7 @@ function App() {
           <Route path="/stations/:stationCode/add-schedule" element={<AddSchedulePage/>} />
           <Route path="/stations/:scheduleId/update-schedule" element={<UpdateSchedulePage/>} />
           <Route path="/trains" element={<TrainsPage/>} />
-          <Route path="/trains" element={<TrainsPage/>} />
+          <Route path="/trains/:trainNumber" element={<TrainsSchedulePage/>} />
         </Route>
       </Routes>
     </>

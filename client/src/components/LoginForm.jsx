@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import http from "../helpers/http";
 
 export default function LoginForm({
@@ -76,8 +76,10 @@ export default function LoginForm({
       </div>
       
       <button type="submit" className="cursor-pointer bg-sky-600 text-white font-medium rounded-md p-2 hover:bg-sky-800">Submit</button>
-
-      <div id="google-login" className="w-full text-center">
+      <div className="w-full flex flex-col justify-center items-center gap-2">
+        <div id="google-login" className="w-full text-center ">
+        </div>
+        <p>Don't have an account? <Link to={'/register'} className="text-slate-300 font-bold">Create an Account</Link></p>
       </div>
     </form>
   );

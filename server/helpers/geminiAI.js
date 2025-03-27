@@ -56,6 +56,7 @@ const gemini = async (string, weather) => {
         and stations data: ${parsedStations}.
         Here is the user input:${string}.
         Here is weather data: ${weather}, but it is optional.
+        You're supposed to answer in Indonesian language but if user's ask question in English, you can answer in English.
         
         You're supposed to give an answer or explanation from the user's question based on the context above. Do not accept any conversation beside train schedule and weather information provide by user input which is data called from API.
         If the users ask about train schedule, give the answer based on the train schedule data. If the users ask about the weather, give the answer based on the weather data. Make the response more varied, show the fact about the schedule, what direction that the train goes and from where the train departs. Put some nice words to the user, make the output more readable and more interesting, and make the response more varied. Instead of responding time  05:35:00 for example, you can just make it 05:30.
