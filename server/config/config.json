@@ -1,17 +1,9 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "postgres",
-    "database": "rail_schedule",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "use_env_variable": "DB_URL"
   },
   "test": {
-    "username": "postgres",
-    "password": "postgres",
-    "database": "rail_schedule_test",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
+    "use_env_variable": "DB_URL"
   },
   "production": {
     "use_env_variable": "DB_URL"
