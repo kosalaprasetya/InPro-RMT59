@@ -22,7 +22,7 @@ const MainLayout = () => {
   return (
     <>
     <header className=" text-white drop-shadow-lg bg-cyan-800 flex p-4 items-center justify-between">
-      <Link to={'/'} className="font-medium cursor-pointer">Train Scheduler</Link>
+      <Link to={'/'} className="font-medium cursor-pointer">Railscheduler</Link>
       
       <button className="bg-orange-600 px-4 py-2 rounded-lg cursor-pointer" onClick={
         handleLogout

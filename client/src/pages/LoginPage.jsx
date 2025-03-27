@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import LoginForm from "../components/LoginForm";
 import http from "../helpers/http";
+import Swal from 'sweetalert2';
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -24,6 +25,11 @@ const LoginPage = () => {
       navigate("/");
     } catch (error) {
       console.error(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error.response.data.message,
+      });
     }
   };
 

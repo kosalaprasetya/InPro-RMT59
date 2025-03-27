@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import http from '../../helpers/http';
 import TrainCard from '../../components/TrainCard';
+import Swal from 'sweetalert2';
 
 const TrainsPage = () => {
 
@@ -18,6 +19,11 @@ const TrainsPage = () => {
       setTrains(response.data);
     } catch (error) {
       console.error(error)
+      Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error.response.data.message,
+            });
     } 
   }
 

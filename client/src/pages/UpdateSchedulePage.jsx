@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router'
+import { Link, useNavigate, useParams } from 'react-router'
 import http from '../helpers/http'
+import Swal from 'sweetalert2';
 
 const UpdateSchedulePage = () => {
   const {scheduleId} = useParams()
@@ -36,6 +37,11 @@ const UpdateSchedulePage = () => {
       setIsTerminus(res.data.isTerminus)
     } catch (error) {
       console.log(error)
+      Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error.response.data.message,
+            });
     }
   }
   const getStationsData = async () => {
@@ -50,6 +56,11 @@ const UpdateSchedulePage = () => {
         setStations(res.data)
     } catch (error) {
         console.log(error)
+        Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.response.data.message,
+              });
     }
   }
   const getTrainData = async () => {
@@ -64,6 +75,11 @@ const UpdateSchedulePage = () => {
       setTrains(res.data)
     } catch (error) {
       console.error(error)
+      Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error.response.data.message,
+            });
     } 
   }
   const handleSubmit = async (event) => {
@@ -73,6 +89,11 @@ const UpdateSchedulePage = () => {
         navigate(-1)
     } catch (error) {
         console.log(error)
+        Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.response.data.message,
+              });
     }
   }
 
@@ -112,23 +133,24 @@ const UpdateSchedulePage = () => {
                 </div>
                 <div className="input w-full">
                     <label htmlFor="arrival">Kedatangan</label>
-                    <input type="time" id='arrival' className="input" name='arrival' value={arrival&& departure} onChange={(e)=>setArrival(e.target.value)}/>
+                    <input type="time" id='arrival' className="input" name='arrival' value={arrival} onChange={(e)=>setArrival(e.target.value)}/>
                 </div>
                 <div className="input w-full">
                     <label htmlFor="departure">Keberangkatan</label>
-                    <input type="time" id='departure' className="input" name='departure' value={departure&& departure} onChange={(e)=>setDeparture(e.target.value)}/>
+                    <input type="time" id='departure' className="input" name='departure' value={departure} onChange={(e)=>setDeparture(e.target.value)}/>
                 </div>
                 <div className="check flex gap-2">
-                    <input type="checkbox" className="checkbox checkbox-primary" name='isTerminus' checked={isTerminus} onChange={(e)=>setIsTerminus(e.target.value)} />
+                    <input type="checkbox" className="checkbox checkbox-primary" name='isTerminus' checked={isTerminus} onChange={(e)=>setIsTerminus(!isTerminus)} />
                     <label htmlFor="arrival">Terminus</label>
                 </div>
                 <div className="check flex gap-2">
-                    <input type="checkbox" className="checkbox checkbox-primary" name='isPassingOnly' checked={isPassingOnly} onChange={(e)=>setIsPassingOnly(e.target.value)} />
+                    <input type="checkbox" className="checkbox checkbox-primary" name='isPassingOnly' checked={isPassingOnly} onChange={(e)=>setIsPassingOnly(!isPassingOnly)} />
                     <label htmlFor="arrival">Langsung</label>
                 </div>
                 
-                <div className="button w-full">
+                <div className="button w-full flex flex-col gap-2">
                     <button className="btn btn-primary w-full" type='submit'>Kirim</button>
+                    <Link to={-1} className="btn btn-secondary w-full" type='submit'>Kembali</Link>
                 </div>
             </form>
           </div>

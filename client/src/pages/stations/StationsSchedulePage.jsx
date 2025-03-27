@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router'
 import http from '../../helpers/http'
+import Swal from 'sweetalert2';
 
 const StationsSchedulePage = () => {
   const { stationCode } = useParams()
@@ -9,6 +10,51 @@ const StationsSchedulePage = () => {
   const [schedules, setSchedules] = useState([])
   const [weather, setWeather] = useState([])
   const [aiResponse, setAiResponse] = useState("")
+
+  const getWeather = async () => {
+    try {
+        const region = station.stationRegion
+        const res = await http({
+            method: "GET",
+            url: region ? `/utils/weather/${region}` : `/utils/weather/surabaya`,
+            headers:{
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`
+            }
+        })
+        setWeather(res.data)
+    } catch (error) {
+        console.log(error)
+        Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.response.data.message,
+              });
+    }
+  }
+
+  const getAiResponse = async () => {
+    try {
+      const res = await http({
+        method: "POST",
+        url: "/utils/ai",
+        headers:{
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`
+        },
+        data: {
+          message: `Give some schedule from stations around ${station.stationRegion}, explain in in human readable language, do not insert difficult information from the json, if weather: ${(weather.current?.condition?.text)} available, show the weather condition, and if not available, say that the weather is not available. If all information unavailable, show the user random schedule. Don't show it literally, just show the schedule. Do not say that the data unvailable, just show the schedule. Do not show .md format, just show plain string.`
+        }
+      })
+      setAiResponse(res.data)
+      console.log(res)
+    } catch (error) {
+      console.log(error)
+      Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error.response.data.message,
+            });
+    }
+  }
 
   const getStationData = async () => {
     try {
@@ -22,6 +68,11 @@ const StationsSchedulePage = () => {
         setStation(res.data)
     } catch (error) {
         console.log(error)
+        Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.response.data.message,
+              });
     }
   }
 
@@ -37,42 +88,13 @@ const StationsSchedulePage = () => {
         setSchedules(res.data)
     } catch (error) {
         console.log(error)
+        Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.response.data.message,
+              });
     }
   }
-
-  const getWeather = async () => {
-    try {
-        const res = await http({
-            method: "GET",
-            url: `/utils/weather/${station.stationRegion}`,
-            headers:{
-                Authorization: `Bearer ${localStorage.getItem("access_token")}`
-            }
-        })
-        setWeather(res.data)
-    } catch (error) {
-        console.log(error)
-    }
-  }
-
-  const getAiResponse = async () => {
-      try {
-        const res = await http({
-          method: "POST",
-          url: "/utils/ai",
-          headers:{
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`
-          },
-          data: {
-            message: `Give the user about weather information in Indonesian language from this data: ${JSON.stringify(weather)} or if the weather is unavailable, give some schedule in ${station.stationRegion}`
-          }
-        })
-        setAiResponse(res.data)
-        console.log(res)
-      } catch (error) {
-        console.log(error)
-      }
-    }
 
   const handleDeleteSchedule = async (scheduleId) => {
     try {
@@ -87,6 +109,11 @@ const StationsSchedulePage = () => {
         getSchedule()
     } catch (error) {
         console.log(error)
+        Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.response.data.message,
+              });
     }
   }
 
@@ -94,12 +121,17 @@ const StationsSchedulePage = () => {
         getStationData()
         getSchedule()
         getWeather()
-        getAiResponse()
+        if(weather && station){
+            getAiResponse()
+        }
     },[])
+
+    console.log(weather.current?.condition?.text)
 
   return (
     <div className='bg-slate-800 min-h-screen py-8 px-4 flex justify-center'>
         <div className="station-info bg-slate-700 p-4 rounded-md flex flex-col gap-4 w-full lg:max-w-1/2">
+            <Link to={-1} className="btn btn-accent w-16 self-end">Back</Link>
             <div className="station-name flex justify-between items-center">
                 <h1 className='font-medium text-xl'>{station.stationName}</h1>
                 <p className='font-bold text-xl'>{stationCode}</p>
@@ -146,6 +178,7 @@ const StationsSchedulePage = () => {
 
                 <div className="weather flex flex-col gap-2">
                     <p>Informasi cuaca saat ini:</p>
+                    <p className='font-bold text-2xl'>{(weather.current?.condition?.text)}</p>
                     <p>{aiResponse}</p>
                 </div>
             </div>

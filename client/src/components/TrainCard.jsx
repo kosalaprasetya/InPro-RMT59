@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 const TrainCard = ({trainName, trainNumber, from, to}) => {
   return (
@@ -10,7 +11,7 @@ const TrainCard = ({trainName, trainNumber, from, to}) => {
               <p>{from} - {to}</p>
             </div>
             <div className="card-actions justify-end">
-                <button className='btn bg-slate-800'>See Stops</button>
+                <Link to={`/trains/${trainNumber}`} className='btn bg-slate-800'>See Stops</Link>
             </div>
         </div>
     </div>
