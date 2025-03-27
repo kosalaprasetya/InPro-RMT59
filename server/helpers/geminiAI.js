@@ -3,7 +3,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 const { Train, TrainSchedule, Station } = require('../models');
 const { GoogleGenAI } = require('@google/genai');
-const weatherCondition = require('./weather');
 const apiKey = process.env.GEMINI_API_KEY;
 const ai = new GoogleGenAI({ apiKey: `${apiKey}` });
 

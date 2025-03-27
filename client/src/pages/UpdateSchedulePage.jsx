@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import http from '../helpers/http'
+import Swal from 'sweetalert2';
 
 const UpdateSchedulePage = () => {
   const {scheduleId} = useParams()
@@ -36,6 +37,11 @@ const UpdateSchedulePage = () => {
       setIsTerminus(res.data.isTerminus)
     } catch (error) {
       console.log(error)
+      Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error.response.data.message,
+            });
     }
   }
   const getStationsData = async () => {
@@ -50,6 +56,11 @@ const UpdateSchedulePage = () => {
         setStations(res.data)
     } catch (error) {
         console.log(error)
+        Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.response.data.message,
+              });
     }
   }
   const getTrainData = async () => {
@@ -64,6 +75,11 @@ const UpdateSchedulePage = () => {
       setTrains(res.data)
     } catch (error) {
       console.error(error)
+      Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error.response.data.message,
+            });
     } 
   }
   const handleSubmit = async (event) => {
@@ -73,6 +89,11 @@ const UpdateSchedulePage = () => {
         navigate(-1)
     } catch (error) {
         console.log(error)
+        Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.response.data.message,
+              });
     }
   }
 

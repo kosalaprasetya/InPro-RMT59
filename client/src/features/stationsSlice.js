@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import http from "../helpers/http"
+import Swal from 'sweetalert2';
 
 const stationsSlice = createSlice({
   name: "stations",
@@ -27,6 +28,11 @@ export const fetchStations = createAsyncThunk(
       dispatch(setStations(response.data));
     } catch (error) {
       console.error(error)
+      Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error.response.data.message,
+            });
     } 
   }
 );

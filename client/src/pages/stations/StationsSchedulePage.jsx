@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router'
 import http from '../../helpers/http'
+import Swal from 'sweetalert2';
 
 const StationsSchedulePage = () => {
   const { stationCode } = useParams()
@@ -22,6 +23,11 @@ const StationsSchedulePage = () => {
         setStation(res.data)
     } catch (error) {
         console.log(error)
+        Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.response.data.message,
+              });
     }
   }
 
@@ -37,6 +43,11 @@ const StationsSchedulePage = () => {
         setSchedules(res.data)
     } catch (error) {
         console.log(error)
+        Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.response.data.message,
+              });
     }
   }
 
@@ -52,6 +63,11 @@ const StationsSchedulePage = () => {
         setWeather(res.data)
     } catch (error) {
         console.log(error)
+        Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.response.data.message,
+              });
     }
   }
 
@@ -71,6 +87,11 @@ const StationsSchedulePage = () => {
         console.log(res)
       } catch (error) {
         console.log(error)
+        Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.response.data.message,
+              });
       }
     }
 
@@ -87,6 +108,11 @@ const StationsSchedulePage = () => {
         getSchedule()
     } catch (error) {
         console.log(error)
+        Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.response.data.message,
+              });
     }
   }
 

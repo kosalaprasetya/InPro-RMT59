@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import http from '../helpers/http'
+import Swal from 'sweetalert2';
 
 const AddSchedulePage = () => {
   const {stationCode} = useParams()
@@ -27,6 +28,11 @@ const AddSchedulePage = () => {
         setStation(res.data)
     } catch (error) {
         console.log(error)
+        Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.response.data.message,
+              });
     }
   }
   const getTrainData = async () => {
@@ -41,6 +47,11 @@ const AddSchedulePage = () => {
       setTrains(res.data)
     } catch (error) {
       console.error(error)
+      Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error.response.data.message,
+            });
     } 
   }
   const handleSubmit = async (event) => {
@@ -67,6 +78,11 @@ const AddSchedulePage = () => {
         navigate(-1)
     } catch (error) {
         console.log(error)
+        Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error.response.data.message,
+      });
     }
   }
 

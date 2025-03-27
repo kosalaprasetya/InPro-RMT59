@@ -6,8 +6,6 @@ import http from '../../helpers/http';
 import StationCard from '../../components/StationCard';
 
 const StationsPage = () => {
-
-
   const dispatch = useDispatch();
   const stations = useSelector(state => state.stations.data)
   useEffect(() => {

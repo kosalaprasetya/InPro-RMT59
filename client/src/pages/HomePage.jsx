@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router'
 import http from '../helpers/http'
-
+import Swal from 'sweetalert2';
 
 
 const HomePage = () => {
@@ -24,6 +24,11 @@ const HomePage = () => {
       console.log(res)
     } catch (error) {
       console.log(error)
+      Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error.response.data.message,
+            });
     }
   }
 
