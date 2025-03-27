@@ -13,9 +13,13 @@ route.post('/ai', async (req, res) => {
 });
 
 route.get('/weather/:region', async (req, res) => {
-  const { region } = req.body;
-  const weather = await weatherCondition(region);
-  res.status(200).send(weather);
+  const { region } = req.params; // Fixed to use req.params
+  try {
+    const weather = await weatherCondition(region);
+    res.status(200).send(weather);
+  } catch (error) {
+    res.status(404).json({ message: error.message }); // Added error handling
+  }
 });
 
 module.exports = route;

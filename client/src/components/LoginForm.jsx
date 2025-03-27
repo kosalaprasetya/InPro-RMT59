@@ -1,5 +1,7 @@
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import { useEffect } from "react";
+import { useNavigate } from "react-router";
+import http from "../helpers/http";
 
 export default function LoginForm({
   email,
@@ -9,8 +11,21 @@ export default function LoginForm({
   handleLogin,
 }) {
 
-  function handleCredentialResponse(response) {
-    console.log("Encoded JWT ID token: " + response.credential);
+  const navigate = useNavigate();
+  async function handleCredentialResponse(response) {
+    try {
+          const res = await http({
+            url: "/auth/googlelogin",
+            method: "POST",
+            data:{
+              googleToken: response.credential
+            }
+          })
+          localStorage.setItem('access_token', res.data["access_token"]);
+          navigate("/");
+        } catch (error) {
+          console.error(error);
+        }
   }
 
   useEffect(() => {  

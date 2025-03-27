@@ -46,6 +46,10 @@ class SchedulesController {
         throw { name: 'bad request', message: 'Missing required fields' };
       }
 
+      if (isNaN(Date.parse(`1970-01-01T${arrival}Z`)) || isNaN(Date.parse(`1970-01-01T${departure}Z`))) {
+        throw { name: 'bad request', message: 'Invalid time format for arrival or departure' }; // Validate time format
+      }
+
       // Validate if train and station exist
       const train = await Train.findByPk(trainId);
       if (!train) throw { name: 'not found', message: 'Train not found' };
@@ -72,6 +76,14 @@ class SchedulesController {
     try {
       const { id } = req.params;
       const { arrival, departure, isPassingOnly, isTerminus, stationId, trainId } = req.body;
+
+      if (arrival && isNaN(Date.parse(`1970-01-01T${arrival}Z`))) {
+        throw { name: 'bad request', message: 'Invalid time format for arrival' }; // Validate time format
+      }
+
+      if (departure && isNaN(Date.parse(`1970-01-01T${departure}Z`))) {
+        throw { name: 'bad request', message: 'Invalid time format for departure' }; // Validate time format
+      }
 
       // Check if schedule exists
       const schedule = await TrainSchedule.findOne({ where: { id } });
@@ -125,7 +137,8 @@ class SchedulesController {
   static async getSchedulesByTrain(req, res, next) {
     try {
       const { trainNumber } = req.params;
-      // Check if train exists
+      if (!trainNumber) throw { name: 'bad request', message: 'Train number is required' }; // Add validation
+
       const train = await Train.findOne({ where: { trainNumber: trainNumber.toUpperCase() } });
       if (!train) throw { name: 'not found', message: 'Train not found' };
 
@@ -147,8 +160,8 @@ class SchedulesController {
   static async getSchedulesByStation(req, res, next) {
     try {
       const { stationCode } = req.params;
+      if (!stationCode) throw { name: 'bad request', message: 'Station code is required' }; // Add validation
 
-      // Check if station exists
       const station = await Station.findOne({ where: { stationCode: stationCode.toUpperCase() } });
       if (!station) throw { name: 'not found', message: 'Station not found' };
 

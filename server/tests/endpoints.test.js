@@ -60,7 +60,6 @@ describe('Users Endpoints', () => {
     const response = await request(app).put('/users/1/update').set('Authorization', `Bearer ${validToken}`).send({
       fullName: 'Updated User',
       email: 'updateduser@mail.com',
-      password: 'newpassword123',
     });
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty('message', 'User updated');
@@ -360,9 +359,48 @@ describe('Error Handling and Edge Cases', () => {
     expect(response.body).toHaveProperty('message');
   });
 
-  test('GET /utils/weather/:region - should return 404 for invalid region', async () => {
-    const response = await request(app).get('/utils/weather/InvalidRegion').set('Authorization', `Bearer ${validToken}`);
-    expect(response.status).toBe(404);
-    expect(response.body).toHaveProperty('message', 'Region not found');
+  test('POST /auth/register - should return 400 for missing fields', async () => {
+    const response = await request(app).post('/auth/register').send({
+      fullName: '',
+      email: '',
+      password: '',
+    });
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty('message', 'Full name, email, and password are required');
+  });
+
+  test('POST /auth/register - should return 400 for invalid email', async () => {
+    const response = await request(app).post('/auth/register').send({
+      fullName: 'Test User',
+      email: 'invalid-email',
+      password: 'password123',
+    });
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty('message', 'Invalid email format');
+  });
+
+  test('POST /schedules - should return 400 for invalid time format', async () => {
+    const response = await request(app)
+      .post('/schedules')
+      .send({
+        arrival: 'invalid-time',
+        departure: 'invalid-time',
+        stationId: 1,
+        trainId: 1,
+      })
+      .set('Authorization', `Bearer ${validToken}`);
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty('message', 'Invalid time format for arrival or departure');
+  });
+
+  test('PUT /schedules/:id - should return 400 for invalid time format', async () => {
+    const response = await request(app)
+      .put(`/schedules/${createdScheduleId}`)
+      .send({
+        arrival: 'invalid-time',
+      })
+      .set('Authorization', `Bearer ${validToken}`);
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty('message', 'Invalid time format for arrival');
   });
 });

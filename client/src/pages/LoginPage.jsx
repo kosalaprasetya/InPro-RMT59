@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import LoginForm from "../components/LoginForm";
-import axios from "axios";
+import http from "../helpers/http";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -11,13 +12,14 @@ const LoginPage = () => {
   const handleLogin = async (event) => {
     try {
       event.preventDefault();
-      const response = await axios.post(
-        "http://localhost:3000/auth/login",
-        {
-          email: email,
-          password: password,
-        }
-      );
+      const response = await http({
+        url: "/auth/login",
+        method: "POST",
+        data: {
+          email,
+          password,
+        },
+      })
       localStorage.setItem('access_token', response.data["access_token"]);
       navigate("/");
     } catch (error) {

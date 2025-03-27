@@ -9,6 +9,10 @@ const ai = new GoogleGenAI({ apiKey: `${apiKey}` });
 
 const gemini = async (string) => {
   try {
+    if (!string || typeof string !== 'string' || string.trim() === '') {
+      throw new Error('Invalid input string'); // Ensure input is non-empty and valid
+    }
+
     const trains = await Train.findAll({
       attributes: ['trainName', 'trainNumber', 'from', 'to'],
       include: [
@@ -54,7 +58,7 @@ const gemini = async (string) => {
         Here is the user input:${string}.
         
         You're supposed to give an answer or explanation from the user's question based on the context above. Do not accept any conversation beside train schedule and weather information provide by user input which is data called from API.
-        If the users ask about train schedule, give the answer based on the train schedule data. If the users ask about the weather, give the answer based on the weather data.
+        If the users ask about train schedule, give the answer based on the train schedule data. If the users ask about the weather, give the answer based on the weather data. Make the response more varied, show the fact about the schedule, what direction that the train goes and from where the train departs. Put some nice words to the user, make the output more readable and more interesting, and make the response more varied. Instead of responding time  05:35:00 for example, you can just make it 05:30.
         
         If the users ask about anything else, give the answer based on the context above or just give a random fact or data about trains, schedules, and stations, do not ask anything just give the answer, for example: "*give some statement here* I dont know about that, but i know about trains *give some nice words here* (show some trains fact)".
         `,
