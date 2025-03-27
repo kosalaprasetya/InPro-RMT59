@@ -49,7 +49,7 @@ useEffect(()=>{
                 <p>Stasiun ini berada dalam wilayah pengelolaan <span className='font-medium'>{station.stationOperationalArea}</span> dan terletak di kota {station.stationRegion}</p>
             </div>
             <div className="add-schedule">
-                <Link to={'/'} className='btn btn-soft btn-primary text-white'>Tambah Jadwal</Link>
+                <Link to={`/stations/${stationCode}/add-schedule`} className='btn btn-soft btn-primary text-white'>Tambah Jadwal</Link>
             </div>
             <div className="schedule flex flex-col gap-4">
                 <p>Jadwal yang tercatat di stasiun ini:</p>
