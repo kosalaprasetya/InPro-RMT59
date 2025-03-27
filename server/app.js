@@ -9,6 +9,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(require('./routes/router'));
-app.use(require('./middlewares/errhandler'));
+app.use(require('./middlewares/errorhandler'));
 
 module.exports = app;
