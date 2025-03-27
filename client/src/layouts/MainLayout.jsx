@@ -28,9 +28,11 @@ const MainLayout = () => {
         handleLogout
       }>Logout</button>
     </header>
-    <div className="main flex gap-4 justify-center p-6 bg-none bg-slate-800">
+    <div className="main flex gap-4 flex-wrap justify-center p-6 bg-none bg-slate-800">
         <Link to={'/stations'} className='bg-slate-700 w-2xs rounded-md text-white px-4 py-2 font-medium h-12 text-center cursor-pointer'>Stations List</Link>
         <Link to={'/trains'} className='bg-slate-700 w-2xs rounded-md text-white px-4 py-2 font-medium h-12 text-center cursor-pointer'>Train List</Link>
+        <Link to={'/stations'} className='bg-slate-700 w-2xs rounded-md text-white px-4 py-2 font-medium h-12 text-center cursor-pointer'>Manage Stations</Link>
+        <Link to={'/trains'} className='bg-slate-700 w-2xs rounded-md text-white px-4 py-2 font-medium h-12 text-center cursor-pointer'>Manage Trains</Link>
     </div>
     <Outlet />
     </>
