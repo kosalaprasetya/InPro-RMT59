@@ -4,32 +4,32 @@ import http from "../helpers/http"
 const stationsSlice = createSlice({
   name: "stations",
   initialState: {
-    stations: [],
+    data: [],
   },
   reducers: {
-    addStations: (state, action) => {
-      state.stations = action.payload;
+    setStations: (state, action) => {
+      state.data = action.payload;
     }
   },
 });
 
 export const fetchStations = createAsyncThunk(
   "stations/fetchStations",
-  async () => {
+  async (_,{dispatch}) => {
     try {
       const response = await http({
         method: "GET",
         url: "/stations",
         headers:{
-          Authorization: `Bearer ${localStorage.getItem("token")}`
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`
         }
       })
-      return response.data;
+      dispatch(setStations(response.data));
     } catch (error) {
       console.error(error)
     } 
   }
 );
 
-export const { addStations } = stationsSlice.actions;
+export const { setStations } = stationsSlice.actions;
 export default stationsSlice.reducer;

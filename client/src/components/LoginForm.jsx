@@ -1,4 +1,3 @@
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import http from "../helpers/http";
@@ -49,32 +48,34 @@ export default function LoginForm({
       </div>
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="email1">Your email</Label>
+          <label htmlFor="email1" className="text-white ">Your email</label>
         </div>
-        <TextInput
+        <input
           id="email1"
           type="email"
           placeholder="name@mail.com"
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className="text-white bg-gray-600 p-2 rounded-md w-full"
         />
       </div>
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="password1">Your password</Label>
+          <label htmlFor="password1" className="text-white ">Your password</label>
         </div>
-        <TextInput
+        <input
           id="password1"
           type="password"
           required
           placeholder="your password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          className="text-white bg-gray-600 p-2 rounded-md w-full"
         />
       </div>
       
-      <Button type="submit" className="cursor-pointer">Submit</Button>
+      <button type="submit" className="cursor-pointer bg-sky-600 text-white font-medium rounded-md p-2 hover:bg-sky-800">Submit</button>
 
       <div id="google-login" className="w-full text-center">
       </div>

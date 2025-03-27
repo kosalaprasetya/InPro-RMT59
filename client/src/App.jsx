@@ -4,6 +4,7 @@ import MainLayout from "./layouts/MainLayout";
 import HomePage from "./pages/HomePage";
 import StationsPage from "./pages/stations/StationsPage";
 import TrainsPage from "./pages/trains/TrainsPage";
+import StationsSchedulePage from "./pages/stations/StationsSchedulePage";
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage/>} />
           <Route path="/stations" element={<StationsPage/>} />
+          <Route path="/stations/:stationCode" element={<StationsSchedulePage/>} />
+          <Route path="/trains" element={<TrainsPage/>} />
           <Route path="/trains" element={<TrainsPage/>} />
         </Route>
       </Routes>

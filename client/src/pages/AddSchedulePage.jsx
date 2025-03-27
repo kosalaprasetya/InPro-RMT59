@@ -1,7 +1,6 @@
 import React from 'react'
-import { Link } from 'react-router'
 
-const HomePage = () => {
+const AddSchedulePage = () => {
   return (
     <div className='flex min-h-screen w-full items-center justify-center bg-slate-800 text-white p-4'>
 
@@ -9,4 +8,4 @@ const HomePage = () => {
   )
 }
 
-export default HomePage
+export default AddSchedulePage
