@@ -1,4 +1,4 @@
-const errorHandler = (err, req, res, next) => {
+const errhandler = (err, req, res, next) => {
   console.log(err, '<<<<<<<<<<<<<<<<<< ERROR HANDLER');
   if (err.name === 'SequelizeUniqueConstraintError' || err.name === 'SequelizeValidationError') {
     const msg = err.errors[0].message;
@@ -28,4 +28,4 @@ const errorHandler = (err, req, res, next) => {
   next();
 };
 
-module.exports = errorHandler;
+module.exports = errhandler;
