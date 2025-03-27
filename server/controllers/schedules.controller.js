@@ -4,6 +4,7 @@ class SchedulesController {
   static async getAllSchedules(req, res, next) {
     try {
       const schedules = await TrainSchedule.findAll({
+        attributes: ['id', 'arrival', 'departure', 'isPassingOnly', 'isTerminus', 'stationId', 'trainId'],
         include: [
           { model: Train, as: 'train' },
           { model: Station, as: 'station' },
@@ -23,6 +24,7 @@ class SchedulesController {
     try {
       const { id } = req.params;
       const schedule = await TrainSchedule.findOne({
+        attributes: ['id', 'arrival', 'departure', 'isPassingOnly', 'isTerminus', 'stationId', 'trainId'],
         where: { id },
         include: [
           { model: Train, as: 'train' },
@@ -143,6 +145,7 @@ class SchedulesController {
       if (!train) throw { name: 'not found', message: 'Train not found' };
 
       const schedules = await TrainSchedule.findAll({
+        attributes: ['id', 'arrival', 'departure', 'isPassingOnly', 'isTerminus', 'stationId', 'trainId'],
         where: { trainId: train.id },
         include: [
           { model: Train, as: 'train' },
@@ -166,6 +169,7 @@ class SchedulesController {
       if (!station) throw { name: 'not found', message: 'Station not found' };
 
       const schedules = await TrainSchedule.findAll({
+        attributes: ['id', 'arrival', 'departure', 'isPassingOnly', 'isTerminus', 'stationId', 'trainId'],
         where: { stationId: station.id },
         include: [
           { model: Train, as: 'train' },

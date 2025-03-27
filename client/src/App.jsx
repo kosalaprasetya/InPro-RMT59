@@ -6,6 +6,7 @@ import StationsPage from "./pages/stations/StationsPage";
 import TrainsPage from "./pages/trains/TrainsPage";
 import StationsSchedulePage from "./pages/stations/StationsSchedulePage";
 import AddSchedulePage from "./pages/AddSchedulePage";
+import UpdateSchedulePage from "./pages/UpdateSchedulePage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/stations" element={<StationsPage/>} />
           <Route path="/stations/:stationCode" element={<StationsSchedulePage/>} />
           <Route path="/stations/:stationCode/add-schedule" element={<AddSchedulePage/>} />
+          <Route path="/stations/:scheduleId/update-schedule" element={<UpdateSchedulePage/>} />
           <Route path="/trains" element={<TrainsPage/>} />
           <Route path="/trains" element={<TrainsPage/>} />
         </Route>

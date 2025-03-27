@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router'
 import http from '../../helpers/http'
-import formatTime from '../../helpers/formatTime'
 
 const StationsSchedulePage = () => {
   const { stationCode } = useParams()
@@ -18,26 +17,47 @@ const StationsSchedulePage = () => {
                 Authorization: `Bearer ${localStorage.getItem("access_token")}`
             }
         })
-
-        const formattedSchedule = res.data.schedules.map(schedule => ({
-            ...schedule,
-            departureTime: formatTime(schedule.departureTime),
-            arrivalTime: formatTime(schedule.arrivalTime),
-        }));
-
         setStation(res.data)
-        setSchedules(formattedSchedule)
-
-       
     } catch (error) {
         console.log(error)
     }
   }
 
-useEffect(()=>{
-    getStationData()
-},[])
+  const getSchedule = async () => {
+    try {
+        const res = await http({
+            method: "GET",
+            url: `/schedules/station/${stationCode}`,
+            headers:{
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`
+            }
+        })
+        setSchedules(res.data)
+    } catch (error) {
+        console.log(error)
+    }
+  }
 
+  const handleDeleteSchedule = async (scheduleId) => {
+    try {
+        const res = await http({
+            method: "DELETE",
+            url: `/schedules/${scheduleId}`,
+            headers:{
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`
+            }
+        })
+        console.log(res)
+        getSchedule()
+    } catch (error) {
+        console.log(error)
+    }
+  }
+
+    useEffect(()=>{
+        getStationData()
+        getSchedule()
+    },[])
   return (
     <div className='bg-slate-800 min-h-screen py-8 px-4 flex justify-center'>
         <div className="station-info bg-slate-700 p-4 rounded-md flex flex-col gap-4 w-full lg:max-w-1/2">
@@ -57,13 +77,28 @@ useEffect(()=>{
                 schedules.map((schedule, index) => {
                     return (
                         <div key={index} className='py-4 rounded-md flex w-full justify-between items-center bg-slate-800 px-2'>
-                            <div className="l text-left">   
+                            <div className="l text-left flex flex-col">   
                                 <p className='font-medium'>KA {schedule.train.trainName}</p>
                                 <p className='text-sm'>Relasi {schedule.train.from}-{schedule.train.to}</p> 
+                                <div className='action flex gap-2 mt-2'>
+                                    <div className="delete">
+                                        <button
+                                        className="btn btn-active btn-error btn-xs"
+                                        onClick={() => handleDeleteSchedule(schedule.id)}
+                                        >Hapus</button>
+                                    </div>
+                                    <div className="delete">
+                                        <Link to={`/stations/${schedule.id}/update-schedule`}
+                                        className="btn btn-active btn-warning btn-xs"
+                                        >Ubah</Link>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="r text-right">
-                                <p>Kedatangan {(schedule.arrival)}</p>
-                                <p>{(schedule.departure ? `Keberangkatan ${schedule.departure}` : '')}</p>
+                            <div className="r flex items-center gap-2">
+                                <div className="text-right">
+                                    <p>{(schedule.arrival ? `Kedatangan ${schedule.arrival}` : '')}</p>
+                                    <p>{(schedule.departure ? `Keberangkatan ${schedule.departure}` : '')}</p>
+                                </div>
                             </div>
                         </div>
                         )
