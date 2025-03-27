@@ -7,6 +7,8 @@ const StationsSchedulePage = () => {
   const { stationCode } = useParams()
   const [station, setStation] = useState([])
   const [schedules, setSchedules] = useState([])
+  const [weather, setWeather] = useState([])
+  const [aiResponse, setAiResponse] = useState("")
 
   const getStationData = async () => {
     try {
@@ -38,6 +40,40 @@ const StationsSchedulePage = () => {
     }
   }
 
+  const getWeather = async () => {
+    try {
+        const res = await http({
+            method: "GET",
+            url: `/utils/weather/${station.stationRegion}`,
+            headers:{
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`
+            }
+        })
+        setWeather(res.data)
+    } catch (error) {
+        console.log(error)
+    }
+  }
+
+  const getAiResponse = async () => {
+      try {
+        const res = await http({
+          method: "POST",
+          url: "/utils/ai",
+          headers:{
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`
+          },
+          data: {
+            message: `Give the user about weather information in Indonesian language from this data: ${JSON.stringify(weather)} or if the weather is unavailable, give some schedule in ${station.stationRegion}`
+          }
+        })
+        setAiResponse(res.data)
+        console.log(res)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
   const handleDeleteSchedule = async (scheduleId) => {
     try {
         const res = await http({
@@ -57,7 +93,10 @@ const StationsSchedulePage = () => {
     useEffect(()=>{
         getStationData()
         getSchedule()
+        getWeather()
+        getAiResponse()
     },[])
+
   return (
     <div className='bg-slate-800 min-h-screen py-8 px-4 flex justify-center'>
         <div className="station-info bg-slate-700 p-4 rounded-md flex flex-col gap-4 w-full lg:max-w-1/2">
@@ -104,6 +143,11 @@ const StationsSchedulePage = () => {
                         )
                 })
                 : <p className='text-center pt-10 italic font-bold'>Tidak ada jadwal yang tercatat</p>}
+
+                <div className="weather flex flex-col gap-2">
+                    <p>Informasi cuaca saat ini:</p>
+                    <p>{aiResponse}</p>
+                </div>
             </div>
         </div>
     </div> 
